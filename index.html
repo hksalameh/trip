@@ -38,12 +38,18 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             margin-bottom: 25px;
         }
-        h2 { color: var(--accent-color); border-right: 4px solid var(--accent-color); padding-right: 10px; font-size: 1.2em; }
+        h2 { 
+            color: var(--accent-color); 
+            border-right: 4px solid var(--accent-color); 
+            padding-right: 10px; 
+            font-size: 1.2em; 
+            margin-bottom: 20px;
+        }
         .grid-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         .option-item {
             border: 2px solid #eee;
@@ -91,11 +97,12 @@
             display: none;
             color: #27ae60;
             background: #e8f5e9;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
             margin-top: 20px;
             font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -170,7 +177,7 @@
 
         <div class="card">
             <h2>ملاحظات إضافية</h2>
-            <textarea name="message" rows="4" placeholder="هل لديك أي ملاحظات أو اقتراحات أخرى؟"></textarea>
+            <textarea name="message" rows="4" placeholder="أي ملاحظات أو اقتراحات أخرى؟"></textarea>
         </div>
 
         <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
@@ -184,6 +191,7 @@
 </div>
 
 <script>
+    // رابط Google Apps Script الخاص بك
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
     const form = document.getElementById('trip-form');
     const btn = document.getElementById('submit-btn');
@@ -194,17 +202,24 @@
         btn.disabled = true;
         btn.innerHTML = "جاري الإرسال...";
         
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                btn.style.display = 'none';
-                form.style.display = 'none';
-                msg.style.display = 'block';
-            })
-            .catch(error => {
-                btn.disabled = false;
-                btn.innerHTML = "إرسال التصويت ✨";
-                alert('عذراً، حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
-            });
+        // إرسال البيانات باستخدام mode: 'no-cors' لتجنب مشاكل الأمان المتصفحية
+        fetch(scriptURL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: new FormData(form)
+        })
+        .then(() => {
+            btn.style.display = 'none';
+            form.style.display = 'none';
+            msg.style.display = 'block';
+            window.scrollTo(0, 0); // العودة لأعلى الصفحة لرؤية رسالة النجاح
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            btn.disabled = false;
+            btn.innerHTML = "إرسال التصويت ✨";
+            alert('حدثت مشكلة أثناء الإرسال. تأكد من إعدادات النشر في جوجل وأعد المحاولة.');
+        });
     });
 </script>
 
