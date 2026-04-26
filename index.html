@@ -13,128 +13,98 @@
             --bg: #f8fafc;
             --text: #2d3436;
         }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg);
-            margin: 0; padding: 0;
-            color: var(--text);
-        }
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, #082032 100%);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-            border-radius: 0 0 40px 40px;
-        }
-        .container { max-width: 700px; margin: -40px auto 50px; padding: 0 20px; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: var(--text); }
+        header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 50px 20px; text-align: center; border-radius: 0 0 40px 40px; }
+        .container { max-width: 800px; margin: -40px auto 50px; padding: 0 20px; }
         
-        .stat-banner {
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-        .stat-item { text-align: center; }
+        .stat-banner { background: white; display: flex; justify-content: space-around; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .stat-num { display: block; font-size: 1.8em; font-weight: bold; color: var(--accent); }
         .stat-label { font-size: 0.85em; color: #7f8c8d; }
 
-        .card {
-            background: white;
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-            margin-bottom: 25px;
-        }
-        h2 { color: var(--primary); font-size: 1.2em; margin-top: 0; border-right: 4px solid var(--accent); padding-right: 12px; }
+        .card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; }
+        h2 { color: var(--primary); font-size: 1.2em; margin-top: 0; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 20px; }
 
-        /* تنسيق الخيارات */
+        /* تنسيق الخيارات والمدخلات */
         .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
-        .option-item {
-            border: 2px solid #f1f2f6; border-radius: 15px; padding: 12px;
-            text-align: center; cursor: pointer; transition: 0.2s; background: #fff;
-        }
-        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; transform: scale(1.03); }
+        .option-item { border: 2px solid #f1f2f6; border-radius: 15px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; background: #fff; }
+        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; }
         input { display: none; }
+        input[type="text"], select, textarea { width: 100%; padding: 14px; border: 2px solid #f1f2f6; border-radius: 12px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
+        button { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; }
 
-        /* تنسيق المدخلات */
-        input[type="text"], select, textarea {
-            width: 100%; padding: 14px; border: 2px solid #f1f2f6; border-radius: 12px; font-family: inherit; margin-top: 8px; box-sizing: border-box;
-        }
+        /* عرض النتائج المطور */
+        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .vote-card { background: #fff; padding: 15px; border-radius: 20px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .vote-name { font-weight: bold; font-size: 1.1em; display: block; color: var(--primary); }
+        .vote-detail { font-size: 0.85em; color: #555; display: block; margin-top: 5px; }
+        .vote-msg { font-style: italic; font-size: 0.8em; color: #7f8c8d; border-top: 1px solid #eee; margin-top: 10px; padding-top: 8px; }
+        
+        .status-badge { font-size: 0.7em; padding: 2px 8px; border-radius: 10px; color: white; margin-right: 5px; }
+        .bg-yes { background: var(--success); }
+        .bg-maybe { background: #f1c40f; }
+        .bg-no { background: #e74c3c; }
 
-        button {
-            background: var(--accent); color: white; border: none; padding: 18px;
-            width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold;
-            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(255, 140, 50, 0.2);
-        }
-        button:hover { background: #e67e22; }
-
-        /* تصميم عرض النتائج "العصري" بدلاً من الشيت */
-        .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
-        .vote-tag {
-            background: #fff; padding: 12px; border-radius: 15px; border: 1px solid #eee;
-            text-align: center; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-left: 5px; }
-        .status-yes { background: var(--success); }
-        .status-maybe { background: #f1c40f; }
-        .status-no { background: #e74c3c; }
-        .vote-name { font-weight: bold; display: block; margin-bottom: 5px; }
-        .vote-loc { font-size: 0.8em; color: #7f8c8d; }
-
-        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; font-weight: bold; }
+        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>رحلتنا العائلية 🌴</h1>
-    <p>صوتك يحدد وجهتنا القادمة</p>
+    <p>تخطيط الرحلة يبدأ من هنا.. شاركونا الرأي</p>
 </header>
 
 <div class="container">
     <div class="stat-banner">
-        <div class="stat-item"><span class="stat-num" id="stat-yes">0</span><span class="stat-label">أكدوا الحضور</span></div>
-        <div class="stat-item"><span class="stat-num" id="stat-total">0</span><span class="stat-label">إجمالي المصوتين</span></div>
+        <div style="text-align:center"><span class="stat-num" id="stat-yes">0</span><span class="stat-label">أكدوا الحضور</span></div>
+        <div style="text-align:center"><span class="stat-num" id="stat-total">0</span><span class="stat-label">إجمالي الأصوات</span></div>
     </div>
 
-    <div id="success-msg">تم تسجيل صوتك! سيتم تحديث النتائج الآن.. ✨</div>
+    <div id="success-msg">شكراً لك! تم تسجيل رأيك وسيتم تحديث القائمة فوراً.. ✨</div>
 
     <form id="trip-form">
         <div class="card">
-            <h2>👤 من معنا؟</h2>
+            <h2>👤 من أنت؟</h2>
             <input type="text" name="name" placeholder="اكتب اسمك هنا..." required>
             <select name="attending" required style="margin-top: 15px;">
                 <option value="yes">بإذن الله، معكم!</option>
-                <option value="maybe">ربما</option>
-                <option value="no">لن أستطيع</option>
+                <option value="maybe">ربما (حسب الظروف)</option>
+                <option value="no">لن أستطيع الحضور</option>
             </select>
         </div>
 
         <div class="card">
-            <h2>📍 الوجهة المفضلة</h2>
+            <h2>📍 أين الوجهة؟</h2>
             <div class="grid-options">
                 <label><input type="radio" name="location" value="المخيبة" required><div class="option-item">🌊 المخيبة</div></label>
                 <label><input type="radio" name="location" value="جرش"><div class="option-item">🏛️ جرش</div></label>
                 <label><input type="radio" name="location" value="عجلون"><div class="option-item">🏰 عجلون</div></label>
                 <label><input type="radio" name="location" value="المثلث"><div class="option-item">⛰️ المثلث</div></label>
             </div>
+            <input type="text" name="other_location" placeholder="أو اقترح مكاناً آخر..." style="margin-top:15px">
         </div>
 
         <div class="card">
-            <h2>💬 كلمة أخيرة</h2>
-            <textarea name="message" rows="2" placeholder="اقتراحات أو ملاحظات..."></textarea>
+            <h2>📅 اليوم المفضل</h2>
+            <div class="grid-options">
+                <label><input type="checkbox" name="day" value="الخميس"><div class="option-item">الخميس</div></label>
+                <label><input type="checkbox" name="day" value="الجمعة"><div class="option-item">الجمعة</div></label>
+                <label><input type="checkbox" name="day" value="السبت"><div class="option-item">السبت</div></label>
+            </div>
         </div>
 
-        <button type="submit" id="submit-btn">تأكيد التصويت ✨</button>
+        <div class="card">
+            <h2>💬 ملاحظاتك (اختياري)</h2>
+            <textarea name="message" rows="2" placeholder="اقتراحات للأكل أو أي شيء آخر..."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
     </form>
 
     <div class="card">
-        <h2>📊 الأصوات الحالية</h2>
-        <div id="live-results" class="results-grid">
-            <p style="text-align: center; color: #999;">جاري تحميل النتائج...</p>
+        <h2>📊 تفاصيل التصويت الحالية</h2>
+        <div id="live-results" class="results-container">
+            <p style="text-align: center; color: #999; grid-column: 1/-1;">جاري جلب آخر التحديثات...</p>
         </div>
     </div>
 </div>
@@ -153,25 +123,31 @@
             let yesCount = 0;
 
             rows.forEach(row => {
-                const cols = row.split(',').map(c => c.replace(/"/g, ''));
-                const [name, attending, location] = cols;
+                // تقسيم البيانات مع التعامل مع الفواصل داخل الملاحظات
+                const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                const cleanCols = cols.map(c => c.replace(/"/g, ''));
                 
-                let statusClass = 'status-maybe';
-                if(attending === 'yes') { statusClass = 'status-yes'; yesCount++; }
-                if(attending === 'no') statusClass = 'status-no';
+                const [name, attending, location, otherLoc, day, message] = cleanCols;
+                
+                let statusBadge = '';
+                if(attending === 'yes') { statusBadge = '<span class="status-badge bg-yes">حاضر</span>'; yesCount++; }
+                else if(attending === 'maybe') { statusBadge = '<span class="status-badge bg-maybe">ربما</span>'; }
+                else { statusBadge = '<span class="status-badge bg-no">معتذر</span>'; }
 
                 html += `
-                    <div class="vote-tag">
-                        <span class="vote-name"><span class="status-dot ${statusClass}"></span>${name}</span>
-                        <span class="vote-loc">📍 ${location || 'لم يحدد'}</span>
+                    <div class="vote-card">
+                        <span class="vote-name">${statusBadge} ${name}</span>
+                        <span class="vote-detail">📍 الوجهة: ${otherLoc || location || 'لم يحدد'}</span>
+                        <span class="vote-detail">📅 اليوم: ${day || 'أي يوم'}</span>
+                        ${message ? `<div class="vote-msg">📝 ${message}</div>` : ''}
                     </div>
                 `;
             });
 
-            document.getElementById('live-results').innerHTML = html || '<p>لا توجد أصوات بعد</p>';
+            document.getElementById('live-results').innerHTML = html || '<p style="grid-column:1/-1; text-align:center;">لا توجد أصوات بعد، كن أول من يصوت!</p>';
             document.getElementById('stat-total').innerText = rows.length;
             document.getElementById('stat-yes').innerText = yesCount;
-        } catch (e) { console.error(e); }
+        } catch (e) { console.error("Error loading results:", e); }
     }
 
     loadResults();
@@ -179,8 +155,7 @@
     document.getElementById('trip-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.innerHTML = "جاري الحفظ...";
+        btn.disabled = true; btn.innerHTML = "جاري الحفظ...";
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: new FormData(this)})
         .then(() => {
