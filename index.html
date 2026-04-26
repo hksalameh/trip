@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استبيان رحلة العائلة</title>
+    <title>استبيان الرحلة القادمة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -38,11 +38,11 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             margin-bottom: 25px;
         }
-        h2 { color: var(--accent-color); border-right: 4px solid var(--accent-color); padding-right: 10px; }
+        h2 { color: var(--accent-color); border-right: 4px solid var(--accent-color); padding-right: 10px; font-size: 1.2em; }
         .grid-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
             margin-top: 20px;
         }
         .option-item {
@@ -52,8 +52,8 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
+            font-weight: bold;
         }
-        .option-item:hover { border-color: var(--accent-color); background: #f0fff4; }
         input[type="radio"], input[type="checkbox"] { display: none; }
         input[type="radio"]:checked + .option-item, 
         input[type="checkbox"]:checked + .option-item {
@@ -63,7 +63,7 @@
         }
         .input-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], input[type="number"], select, textarea {
+        input[type="text"], select, textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -82,15 +82,16 @@
             width: 100%;
             transition: background 0.3s;
             font-weight: bold;
+            margin-top: 10px;
         }
         button:hover { background-color: #219150; }
-        .footer { text-align: center; font-size: 0.9em; color: #7f8c8d; }
+        .footer { text-align: center; font-size: 0.9em; color: #7f8c8d; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>دعوة لرحلة العائلة الجميلة 🌴</h1>
+    <h1>الرحلة القادمة بإذن الله 🌴</h1>
     <p>صوتوا وشاركونا لنخطط لأجمل يوم مع بعض</p>
 </header>
 
@@ -100,7 +101,7 @@
         <div class="card">
             <h2>البيانات الأساسية</h2>
             <div class="input-group">
-                <label>الاسم الكامل</label>
+                <label>الاسم</label>
                 <input type="text" name="name" placeholder="اكتب اسمك هنا..." required>
             </div>
             <div class="input-group">
@@ -115,49 +116,51 @@
 
         <div class="card">
             <h2>المكان المقترح</h2>
-            <p>اختر المكان الذي تفضله:</p>
             <div class="grid-options">
                 <label>
-                    <input type="radio" name="location" value="مزرعة خاصة" required>
-                    <div class="option-item">
-                        <h3>🏡 مزرعة خاصة</h3>
-                        <p>خصوصية وهدوء ومسبح</p>
-                    </div>
+                    <input type="radio" name="location" value="المخيبة" required>
+                    <div class="option-item">📍 المخيبة</div>
                 </label>
                 <label>
-                    <input type="radio" name="location" value="منطقة جبلية">
-                    <div class="option-item">
-                        <h3>⛰️ منطقة جبلية</h3>
-                        <p>طبيعة خلابة وجلسات عربية</p>
-                    </div>
+                    <input type="radio" name="location" value="جرش">
+                    <div class="option-item">📍 جرش</div>
                 </label>
                 <label>
-                    <input type="radio" name="location" value="متنزه عام">
-                    <div class="option-item">
-                        <h3>🌳 متنزه عام</h3>
-                        <p>ألعاب للأطفال ومساحات واسعة</p>
-                    </div>
+                    <input type="radio" name="location" value="عجلون">
+                    <div class="option-item">📍 عجلون</div>
                 </label>
+                <label>
+                    <input type="radio" name="location" value="المثلث">
+                    <div class="option-item">📍 المثلث</div>
+                </label>
+            </div>
+            <div class="input-group" style="margin-top: 20px;">
+                <label>أو اقترح مكاناً آخر:</label>
+                <input type="text" name="other_location" placeholder="اكتب اسم المكان المقترح هنا...">
             </div>
         </div>
 
         <div class="card">
-            <h2>اليوم المفضل</h2>
+            <h2>اليوم المقترح</h2>
             <div class="grid-options">
                 <label>
-                    <input type="checkbox" name="day" value="الجمعة">
-                    <div class="option-item">الجمعة القادم</div>
+                    <input type="checkbox" name="day" value="الخميس القادم">
+                    <div class="option-item">الخميس القادم</div>
                 </label>
                 <label>
-                    <input type="checkbox" name="day" value="السبت">
+                    <input type="checkbox" name="day" value="الجمعة القادمة">
+                    <div class="option-item">الجمعة القادمة</div>
+                </label>
+                <label>
+                    <input type="checkbox" name="day" value="السبت القادم">
                     <div class="option-item">السبت القادم</div>
                 </label>
             </div>
         </div>
 
         <div class="card">
-            <h2>اقتراحات إضافية</h2>
-            <textarea name="message" rows="4" placeholder="هل لديك أي ملاحظات أو اقتراح لنوع الطعام؟"></textarea>
+            <h2>ملاحظات إضافية</h2>
+            <textarea name="message" rows="4" placeholder="هل لديك أي ملاحظات أو اقتراحات أخرى؟"></textarea>
         </div>
 
         <button type="submit">إرسال التصويت ✨</button>
