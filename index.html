@@ -10,46 +10,53 @@
         body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: var(--text); }
         header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
         .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; }
+        
         .stat-banner { background: white; display: flex; justify-content: space-around; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .stat-num { display: block; font-size: 1.8em; font-weight: bold; color: var(--accent); }
+        
         .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 20px; }
         h2 { color: var(--primary); font-size: 1.2em; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 20px; }
-        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
-        .option-item { border: 2px solid #f1f2f6; border-radius: 12px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
-        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; }
+        
+        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+        .option-item { border: 2px solid #f1f2f6; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; background: #fff; }
+        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; transform: scale(1.02); }
         input { display: none; }
-        input[type="text"], select, textarea { width: 100%; padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
-        button { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        input[type="text"], select, textarea { width: 100%; padding: 14px; border: 2px solid #f1f2f6; border-radius: 12px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
+        button { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 15px rgba(255, 140, 50, 0.2); }
+        
+        /* تصميم الإحصائيات التفصيلية */
+        .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .analysis-card { background: #f1f7f9; padding: 15px; border-radius: 15px; border-bottom: 3px solid var(--primary); }
+        .analysis-item { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9em; }
+        .analysis-val { font-weight: bold; color: var(--primary); }
+
         .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
-        .vote-card { background: #fff; padding: 15px; border-radius: 15px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .status-badge { font-size: 0.75em; padding: 2px 8px; border-radius: 8px; color: white; }
+        .vote-card { background: #fff; padding: 15px; border-radius: 15px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); position: relative; }
+        .status-badge { font-size: 0.75em; padding: 2px 8px; border-radius: 8px; color: white; margin-left: 5px; }
         .bg-yes { background: var(--success); } .bg-maybe { background: #f1c40f; } .bg-no { background: #e74c3c; }
-        #success-msg { display: none; background: var(--success); color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+        
+        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>رحلتنا العائلية 🌴</h1>
-    <p>صوتك يحدد وجهتنا القادمة</p>
+    <p>صوتك يحدد وجهتنا وموعدنا</p>
 </header>
 
 <div class="container">
-    <div class="stat-banner">
-        <div style="text-align:center"><span class="stat-num" id="stat-yes">0</span><span>أكدوا الحضور</span></div>
-        <div style="text-align:center"><span class="stat-num" id="stat-total">0</span><span>إجمالي الأصوات</span></div>
-    </div>
-
-    <div id="success-msg">تم الإرسال بنجاح! جاري التحديث.. ✨</div>
+    <div id="success-msg">🎉 تم استلام صوتك بنجاح! جاري تحديث لوحة النتائج..</div>
 
     <form id="trip-form">
         <div class="card">
             <h2>👤 الاسم والحضور</h2>
-            <input type="text" name="name" placeholder="اكتب اسمك..." required>
-            <select name="attending" required style="margin-top: 10px;">
+            <input type="text" name="name" placeholder="اكتب اسمك الكامل..." required>
+            <select name="attending" required style="margin-top: 15px;">
                 <option value="yes">بإذن الله، معكم!</option>
-                <option value="maybe">ربما</option>
-                <option value="no">معتذر</option>
+                <option value="maybe">ربما (حسب الظروف)</option>
+                <option value="no">معتذر عن الحضور</option>
             </select>
         </div>
 
@@ -61,28 +68,51 @@
                 <label><input type="radio" name="location" value="عجلون"><div class="option-item">🏰 عجلون</div></label>
                 <label><input type="radio" name="location" value="المثلث"><div class="option-item">⛰️ المثلث</div></label>
             </div>
-            <input type="text" name="other_location" placeholder="أو مكان آخر..." style="margin-top:10px">
+            <input type="text" name="other_location" placeholder="أو اقترح مكاناً آخر هنا..." style="margin-top:15px">
+        </div>
+
+        <div class="card">
+            <h2>📅 اليوم المفضل</h2>
+            <div class="grid-options">
+                <label><input type="radio" name="day" value="الخميس" required><div class="option-item">الخميس</div></label>
+                <label><input type="radio" name="day" value="الجمعة"><div class="option-item">الجمعة</div></label>
+                <label><input type="radio" name="day" value="السبت"><div class="option-item">السبت</div></label>
+            </div>
         </div>
 
         <div class="card">
             <h2>💬 ملاحظات إضافية</h2>
-            <textarea name="message" rows="2" placeholder="أي اقتراحات أخرى؟"></textarea>
+            <textarea name="message" rows="2" placeholder="اقتراحات للأكل أو الأنشطة..."></textarea>
         </div>
 
         <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
     </form>
 
     <div class="card">
-        <h2>📊 قائمة المصوتين</h2>
-        <div id="live-results" class="results-container">
-            <p style="text-align: center; grid-column: 1/-1;">جاري التحميل...</p>
+        <h2>📊 ملخص الاستطلاع</h2>
+        <div class="analysis-grid" id="analysis-stats">
+            <div class="analysis-card">
+                <strong>📍 توزيع الأماكن:</strong>
+                <div id="stats-locations" style="margin-top:10px">جاري الحساب...</div>
+            </div>
+            <div class="analysis-card">
+                <strong>📅 توزيع الأيام:</strong>
+                <div id="stats-days" style="margin-top:10px">جاري الحساب...</div>
+            </div>
         </div>
+        
+        <div class="stat-banner">
+            <div style="text-align:center"><span class="stat-num" id="stat-yes">0</span><span>حاضر ✅</span></div>
+            <div style="text-align:center"><span class="stat-num" id="stat-total">0</span><span>إجمالي الأصوات 👤</span></div>
+        </div>
+
+        <div id="live-results" class="results-container">
+            </div>
     </div>
 </div>
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
-    // ملاحظة: الرابط أدناه يحتاج أن يكون ملف CSV من "النشر على الويب" في جوجل شيت
     const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3gvcZGCFU_5Hulp9Pos85XL4w3m2hgQ7ZG1ieZNGmH8zULhs9vqJePizw9338MQ-i25py-oz_JQjC/pub?output=csv';
 
     async function loadResults() {
@@ -93,26 +123,46 @@
             
             let html = '';
             let yesCount = 0;
+            let locStats = {};
+            let dayStats = {};
 
             rows.forEach(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // تقسيم ذكي يحمي الفواصل داخل النصوص
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 const clean = cols.map(c => c.replace(/^"|"$/g, '').trim());
-                
                 const [name, attending, location, otherLoc, day, msg] = clean;
+
                 if(!name) return;
 
+                // حساب إحصائيات الأماكن والأيام
+                const finalLoc = otherLoc || location;
+                if(attending === 'yes') {
+                    locStats[finalLoc] = (locStats[finalLoc] || 0) + 1;
+                    dayStats[day] = (dayStats[day] || 0) + 1;
+                    yesCount++;
+                }
+
                 let badge = `<span class="status-badge bg-maybe">ربما</span>`;
-                if(attending === 'yes') { badge = `<span class="status-badge bg-yes">حاضر</span>`; yesCount++; }
+                if(attending === 'yes') badge = `<span class="status-badge bg-yes">حاضر</span>`;
                 if(attending === 'no') badge = `<span class="status-badge bg-no">معتذر</span>`;
 
                 html += `<div class="vote-card">
                     <strong>${badge} ${name}</strong><br>
-                    <small>📍 ${otherLoc || location || 'لم يحدد'}</small>
+                    <small>📍 ${finalLoc} | 📅 ${day || 'أي يوم'}</small>
                     ${msg ? `<div style="font-size:0.8em; color:#666; margin-top:5px; border-top:1px solid #eee; padding-top:5px;">📝 ${msg}</div>` : ''}
                 </div>`;
             });
 
-            document.getElementById('live-results').innerHTML = html || '<p>لا توجد أصوات بعد</p>';
+            // عرض إحصائيات الأماكن
+            let locHtml = '';
+            for (let loc in locStats) locHtml += `<div class="analysis-item"><span>${loc}</span><span class="analysis-val">${locStats[loc]} صوت</span></div>`;
+            document.getElementById('stats-locations').innerHTML = locHtml || 'لا توجد أصوات بعد';
+
+            // عرض إحصائيات الأيام
+            let dayHtml = '';
+            for (let day in dayStats) if(day) dayHtml += `<div class="analysis-item"><span>${day}</span><span class="analysis-val">${dayStats[day]} شخص</span></div>`;
+            document.getElementById('stats-days').innerHTML = dayHtml || 'لا توجد أصوات بعد';
+
+            document.getElementById('live-results').innerHTML = html || '<p style="grid-column:1/-1; text-align:center">بانتظار أول تصويت...</p>';
             document.getElementById('stat-total').innerText = rows.length;
             document.getElementById('stat-yes').innerText = yesCount;
         } catch (e) { console.log(e); }
@@ -129,9 +179,9 @@
         .then(() => {
             this.style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
-            setTimeout(() => location.reload(), 2000);
+            setTimeout(() => location.reload(), 2500);
         }).catch(() => {
-            alert("حدث خطأ، حاول مرة أخرى");
+            alert("حدث خطأ، حاول مجدداً");
             btn.disabled = false; btn.innerHTML = "إرسال التصويت ✨";
         });
     });
