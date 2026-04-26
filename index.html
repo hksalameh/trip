@@ -3,153 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تخطيط الرحلة العائلية 🌴</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>رحلتنا العائلية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a5f7a; --accent: #ff8c32; --success: #27ae60; --bg: #f8fafc; --text: #2d3436; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: var(--text); direction: rtl; }
-        header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
-        .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; }
-        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 20px; }
-        h2 { color: var(--primary); font-size: 1.1em; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 15px; }
-        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
-        .option-item { border: 2px solid #f1f2f6; border-radius: 12px; padding: 10px; text-align: center; cursor: pointer; background: #fff; }
-        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; font-weight: bold; }
+        :root { --primary: #1a5f7a; --accent: #ff8c32; --bg: #f8fafc; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); direction: rtl; margin: 0; padding: 0; }
+        header { background: var(--primary); color: white; padding: 30px; text-align: center; border-radius: 0 0 20px 20px; }
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        h2 { font-size: 1.1em; color: var(--primary); margin-bottom: 15px; border-right: 3px solid var(--accent); padding-right: 10px; }
+        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
+        .opt { border: 1px solid #ddd; padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; background: white; font-size: 0.9em; }
         input[type="radio"] { display: none; }
-        input[type="text"], select { width: 100%; padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
-        button { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .analysis-card { background: #f1f7f9; padding: 15px; border-radius: 15px; border-bottom: 3px solid var(--primary); }
-        .analysis-item { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85em; }
-        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .vote-card { background: #fff; padding: 15px; border-radius: 15px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
+        input:checked + .opt { border-color: var(--accent); background: #fff9f4; font-weight: bold; }
+        button { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
+        #live-results { margin-top: 20px; }
+        .vote-item { background: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; border-right: 4px solid var(--primary); font-size: 0.9em; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>رحلتنا العائلية 🌴</h1>
-    <p>صوتك يهمنا لتنظيم رحلة ممتعة</p>
-</header>
+<header><h1>رحلتنا العائلية 🌴</h1></header>
 
 <div class="container">
-    <div id="success-msg">🎉 تم استلام تصويتك بنجاح! شكراً لك.</div>
-
-    <form id="trip-form">
+    <form id="tripForm">
         <div class="card">
-            <h2>👤 الاسم</h2>
-            <input type="text" name="name" placeholder="اكتب اسمك هنا..." required>
-            <select name="attending" required style="margin-top: 10px;">
-                <option value="yes">بإذن الله، حاضر</option>
+            <h2>الاسم</h2>
+            <input type="text" name="name" required placeholder="اكتب اسمك">
+            <select name="attending">
+                <option value="yes">حاضر</option>
                 <option value="maybe">ربما</option>
                 <option value="no">معتذر</option>
             </select>
         </div>
 
         <div class="card">
-            <h2>📍 المكان</h2>
-            <div class="grid-options">
-                <label><input type="radio" name="location" value="المخيبة" required><div class="option-item">🌊 المخيبة</div></label>
-                <label><input type="radio" name="location" value="جرش"><div class="option-item">🏛️ جرش</div></label>
-                <label><input type="radio" name="location" value="عجلون"><div class="option-item">🏰 عجلون</div></label>
-                <label><input type="radio" name="location" value="المثلث"><div class="option-item">⛰️ المثلث</div></label>
+            <h2>المكان</h2>
+            <div class="grid">
+                <label><input type="radio" name="location" value="المخيبة" required><div class="opt">المخيبة</div></label>
+                <label><input type="radio" name="location" value="جرش"><div class="opt">جرش</div></label>
+                <label><input type="radio" name="location" value="عجلون"><div class="opt">عجلون</div></label>
+                <label><input type="radio" name="location" value="المثلث"><div class="opt">المثلث</div></label>
             </div>
-            <input type="text" name="other_location" placeholder="اقتراح مكان آخر..." style="margin-top: 15px;">
+            <input type="text" name="other_location" placeholder="اقتراح مكان آخر (اختياري)">
         </div>
 
         <div class="card">
-            <h2>📅 اليوم</h2>
-            <div class="grid-options">
-                <label><input type="radio" name="day" value="الخميس" required><div class="option-item">الخميس</div></label>
-                <label><input type="radio" name="day" value="الجمعة"><div class="option-item">الجمعة</div></label>
-                <label><input type="radio" name="day" value="السبت"><div class="option-item">السبت</div></label>
+            <h2>اليوم</h2>
+            <div class="grid">
+                <label><input type="radio" name="day" value="الخميس"><div class="opt">الخميس</div></label>
+                <label><input type="radio" name="day" value="الجمعة"><div class="opt">الجمعة</div></label>
+                <label><input type="radio" name="day" value="السبت"><div class="opt">السبت</div></label>
             </div>
         </div>
 
         <div class="card">
-            <h2>🍴 ماذا نأكل؟</h2>
-            <div class="grid-options">
-                <label><input type="radio" name="food" value="أكل جاهز" required><div class="option-item">🍗 جاهز</div></label>
-                <label><input type="radio" name="food" value="شوي"><div class="option-item">🔥 شوي</div></label>
-                <label><input type="radio" name="food" value="من المنزل"><div class="option-item">🏠 من المنزل</div></label>
+            <h2>ماذا نأكل؟</h2>
+            <div class="grid">
+                <label><input type="radio" name="food" value="جاهز"><div class="opt">جاهز</div></label>
+                <label><input type="radio" name="food" value="شوي"><div class="opt">شوي</div></label>
+                <label><input type="radio" name="food" value="منزل"><div class="opt">من المنزل</div></label>
             </div>
-            <input type="text" name="food_suggestions" placeholder="اقتراحات للأكل..." style="margin-top: 15px;">
+            <input type="text" name="food_suggestions" placeholder="اقتراحات الأكل (اختياري)">
         </div>
 
-        <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
+        <button type="submit" id="submitBtn">إرسال التصويت ✨</button>
     </form>
 
-    <div class="card">
-        <h2>📊 إحصائيات الاستطلاع</h2>
-        <div class="analysis-grid">
-            <div class="analysis-card"><strong>📍 الأماكن:</strong><div id="stats-loc" style="margin-top:8px"></div></div>
-            <div class="analysis-card"><strong>📅 الأيام:</strong><div id="stats-day" style="margin-top:8px"></div></div>
-            <div class="analysis-card"><strong>🍴 الأكل:</strong><div id="stats-food" style="margin-top:8px"></div></div>
-        </div>
-        
-        <div id="live-results" class="results-container"></div>
+    <div id="live-results">
+        <p style="text-align:center">جاري تحميل النتائج...</p>
     </div>
 </div>
 
 <script>
-    // استبدل الرابط أدناه برابط السكربت الجديد الذي ستحصل عليه بعد الـ Deploy
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
+    // ضع رابط السكربت الخاص بك هنا
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxRwKiDXZ6dIodS6qL_-Lfn7rA2jkSQ2ZV4XvFoT28ZHuout8UqzYokrMmR4vqdB-XSKw/exec';
     const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3gvcZGCFU_5Hulp9Pos85XL4w3m2hgQ7ZG1ieZNGmH8zULhs9vqJePizw9338MQ-i25py-oz_JQjC/pub?output=csv';
 
-    async function loadData() {
+    // تحميل البيانات
+    async function loadResults() {
         try {
-            const resp = await fetch(csvURL);
-            const text = await resp.text();
-            const rows = text.split('\n').slice(1).filter(r => r.trim() !== '');
-            let html = '', locs = {}, days = {}, foods = {};
-            
+            const res = await fetch(csvURL);
+            const data = await res.text();
+            const rows = data.split('\n').slice(1);
+            let html = '<h2>الأصوات الحالية:</h2>';
             rows.forEach(row => {
-                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(s => s.replace(/^"|"$/g, '').trim());
-                const [name, attend, loc, oLoc, day, food, fSug] = c;
-                if(!name) return;
-
-                if(attend === 'yes') {
-                    const finalLoc = oLoc || loc;
-                    locs[finalLoc] = (locs[finalLoc] || 0) + 1;
-                    days[day] = (days[day] || 0) + 1;
-                    foods[food] = (foods[food] || 0) + 1;
+                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, ''));
+                if(c[0]) {
+                    html += `<div class="vote-item">
+                        <strong>${c[0]}</strong> (${c[1] === 'yes' ? 'حاضر' : c[1]})<br>
+                        📍 ${c[3] || c[2]} | 📅 ${c[4]} | 🍴 ${c[5]}<br>
+                        ${c[6] ? `<small>💡 ${c[6]}</small>` : ''}
+                    </div>`;
                 }
-
-                html += `<div class="vote-card">
-                    <strong>${name}</strong> <span style="font-size:0.8em; color:${attend==='yes'?'#27ae60':'#e74c3c'}">(${attend==='yes'?'حاضر':'معتذر'})</span><br>
-                    <small>📍 ${oLoc || loc} | 📅 ${day} | 🍴 ${food}</small>
-                    ${fSug ? `<div style="font-size:0.85em; color:#666; margin-top:5px; border-top:1px solid #eee; padding-top:5px;">💡 ${fSug}</div>` : ''}
-                </div>`;
             });
-
-            const renderStats = (obj, id) => {
-                let h = ''; for(let k in obj) if(k) h += `<div class="analysis-item"><span>${k}</span><b>${obj[k]}</b></div>`;
-                document.getElementById(id).innerHTML = h || 'لا توجد بيانات';
-            };
-            renderStats(locs, 'stats-loc'); renderStats(days, 'stats-day'); renderStats(foods, 'stats-food');
             document.getElementById('live-results').innerHTML = html;
-        } catch(e) { console.error(e); }
+        } catch (e) { console.error(e); }
     }
 
-    loadData();
+    loadResults();
 
-    document.getElementById('trip-form').addEventListener('submit', e => {
+    // إرسال البيانات
+    document.getElementById('tripForm').addEventListener('submit', e => {
         e.preventDefault();
-        const b = document.getElementById('submit-btn');
-        b.disabled = true; b.innerHTML = "جاري الحفظ...";
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerText = "جاري الحفظ...";
+
+        const formData = new FormData(e.target);
         
-        fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
-        .then(() => { 
-            e.target.style.display = 'none'; 
-            document.getElementById('success-msg').style.display = 'block'; 
-            setTimeout(() => location.reload(), 2000); 
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: formData,
+            mode: 'no-cors' // حل مشكلة الـ CORS
         })
-        .catch(error => {
-            console.error('Error!', error.message);
-            b.disabled = false; b.innerHTML = "إرسال التصويت ✨";
+        .then(() => {
+            alert("تم التصويت بنجاح!");
+            location.reload();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("حدث خطأ، حاول مرة أخرى.");
+            btn.disabled = false;
+            btn.innerText = "إرسال التصويت ✨";
         });
     });
 </script>
+
 </body>
 </html>
