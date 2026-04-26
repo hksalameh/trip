@@ -6,148 +6,116 @@
     <title>تخطيط الرحلة العائلية 🌴</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1a5f7a;
-            --accent: #ff8c32;
-            --success: #27ae60;
-            --bg: #f8fafc;
-            --text: #2d3436;
-        }
+        :root { --primary: #1a5f7a; --accent: #ff8c32; --success: #27ae60; --bg: #f8fafc; --text: #2d3436; }
         body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: var(--text); }
-        header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 50px 20px; text-align: center; border-radius: 0 0 40px 40px; }
-        .container { max-width: 800px; margin: -40px auto 50px; padding: 0 20px; }
-        
-        .stat-banner { background: white; display: flex; justify-content: space-around; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; }
+        .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; }
+        .stat-banner { background: white; display: flex; justify-content: space-around; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .stat-num { display: block; font-size: 1.8em; font-weight: bold; color: var(--accent); }
-        .stat-label { font-size: 0.85em; color: #7f8c8d; }
-
-        .card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; }
-        h2 { color: var(--primary); font-size: 1.2em; margin-top: 0; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 20px; }
-
-        /* تنسيق الخيارات والمدخلات */
-        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
-        .option-item { border: 2px solid #f1f2f6; border-radius: 15px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; background: #fff; }
+        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 20px; }
+        h2 { color: var(--primary); font-size: 1.2em; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 20px; }
+        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+        .option-item { border: 2px solid #f1f2f6; border-radius: 12px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
         input:checked + .option-item { border-color: var(--accent); background: #fff9f4; }
         input { display: none; }
-        input[type="text"], select, textarea { width: 100%; padding: 14px; border: 2px solid #f1f2f6; border-radius: 12px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
-        button { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; }
-
-        /* عرض النتائج المطور */
-        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .vote-card { background: #fff; padding: 15px; border-radius: 20px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .vote-name { font-weight: bold; font-size: 1.1em; display: block; color: var(--primary); }
-        .vote-detail { font-size: 0.85em; color: #555; display: block; margin-top: 5px; }
-        .vote-msg { font-style: italic; font-size: 0.8em; color: #7f8c8d; border-top: 1px solid #eee; margin-top: 10px; padding-top: 8px; }
-        
-        .status-badge { font-size: 0.7em; padding: 2px 8px; border-radius: 10px; color: white; margin-right: 5px; }
-        .bg-yes { background: var(--success); }
-        .bg-maybe { background: #f1c40f; }
-        .bg-no { background: #e74c3c; }
-
-        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
+        input[type="text"], select, textarea { width: 100%; padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
+        button { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
+        .vote-card { background: #fff; padding: 15px; border-radius: 15px; border-right: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .status-badge { font-size: 0.75em; padding: 2px 8px; border-radius: 8px; color: white; }
+        .bg-yes { background: var(--success); } .bg-maybe { background: #f1c40f; } .bg-no { background: #e74c3c; }
+        #success-msg { display: none; background: var(--success); color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>رحلتنا العائلية 🌴</h1>
-    <p>تخطيط الرحلة يبدأ من هنا.. شاركونا الرأي</p>
+    <p>صوتك يحدد وجهتنا القادمة</p>
 </header>
 
 <div class="container">
     <div class="stat-banner">
-        <div style="text-align:center"><span class="stat-num" id="stat-yes">0</span><span class="stat-label">أكدوا الحضور</span></div>
-        <div style="text-align:center"><span class="stat-num" id="stat-total">0</span><span class="stat-label">إجمالي الأصوات</span></div>
+        <div style="text-align:center"><span class="stat-num" id="stat-yes">0</span><span>أكدوا الحضور</span></div>
+        <div style="text-align:center"><span class="stat-num" id="stat-total">0</span><span>إجمالي الأصوات</span></div>
     </div>
 
-    <div id="success-msg">شكراً لك! تم تسجيل رأيك وسيتم تحديث القائمة فوراً.. ✨</div>
+    <div id="success-msg">تم الإرسال بنجاح! جاري التحديث.. ✨</div>
 
     <form id="trip-form">
         <div class="card">
-            <h2>👤 من أنت؟</h2>
-            <input type="text" name="name" placeholder="اكتب اسمك هنا..." required>
-            <select name="attending" required style="margin-top: 15px;">
+            <h2>👤 الاسم والحضور</h2>
+            <input type="text" name="name" placeholder="اكتب اسمك..." required>
+            <select name="attending" required style="margin-top: 10px;">
                 <option value="yes">بإذن الله، معكم!</option>
-                <option value="maybe">ربما (حسب الظروف)</option>
-                <option value="no">لن أستطيع الحضور</option>
+                <option value="maybe">ربما</option>
+                <option value="no">معتذر</option>
             </select>
         </div>
 
         <div class="card">
-            <h2>📍 أين الوجهة؟</h2>
+            <h2>📍 الوجهة المقترحة</h2>
             <div class="grid-options">
                 <label><input type="radio" name="location" value="المخيبة" required><div class="option-item">🌊 المخيبة</div></label>
                 <label><input type="radio" name="location" value="جرش"><div class="option-item">🏛️ جرش</div></label>
                 <label><input type="radio" name="location" value="عجلون"><div class="option-item">🏰 عجلون</div></label>
                 <label><input type="radio" name="location" value="المثلث"><div class="option-item">⛰️ المثلث</div></label>
             </div>
-            <input type="text" name="other_location" placeholder="أو اقترح مكاناً آخر..." style="margin-top:15px">
+            <input type="text" name="other_location" placeholder="أو مكان آخر..." style="margin-top:10px">
         </div>
 
         <div class="card">
-            <h2>📅 اليوم المفضل</h2>
-            <div class="grid-options">
-                <label><input type="checkbox" name="day" value="الخميس"><div class="option-item">الخميس</div></label>
-                <label><input type="checkbox" name="day" value="الجمعة"><div class="option-item">الجمعة</div></label>
-                <label><input type="checkbox" name="day" value="السبت"><div class="option-item">السبت</div></label>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>💬 ملاحظاتك (اختياري)</h2>
-            <textarea name="message" rows="2" placeholder="اقتراحات للأكل أو أي شيء آخر..."></textarea>
+            <h2>💬 ملاحظات إضافية</h2>
+            <textarea name="message" rows="2" placeholder="أي اقتراحات أخرى؟"></textarea>
         </div>
 
         <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
     </form>
 
     <div class="card">
-        <h2>📊 تفاصيل التصويت الحالية</h2>
+        <h2>📊 قائمة المصوتين</h2>
         <div id="live-results" class="results-container">
-            <p style="text-align: center; color: #999; grid-column: 1/-1;">جاري جلب آخر التحديثات...</p>
+            <p style="text-align: center; grid-column: 1/-1;">جاري التحميل...</p>
         </div>
     </div>
 </div>
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
+    // ملاحظة: الرابط أدناه يحتاج أن يكون ملف CSV من "النشر على الويب" في جوجل شيت
     const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3gvcZGCFU_5Hulp9Pos85XL4w3m2hgQ7ZG1ieZNGmH8zULhs9vqJePizw9338MQ-i25py-oz_JQjC/pub?output=csv';
-    
+
     async function loadResults() {
         try {
             const response = await fetch(csvURL);
-            const data = await response.text();
-            const rows = data.split('\n').slice(1).filter(r => r.trim() !== '');
+            const text = await response.text();
+            const rows = text.split('\n').slice(1).filter(r => r.trim() !== '');
             
             let html = '';
             let yesCount = 0;
 
             rows.forEach(row => {
-                // تقسيم البيانات مع التعامل مع الفواصل داخل الملاحظات
-                const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-                const cleanCols = cols.map(c => c.replace(/"/g, ''));
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // تقسيم ذكي يحمي الفواصل داخل النصوص
+                const clean = cols.map(c => c.replace(/^"|"$/g, '').trim());
                 
-                const [name, attending, location, otherLoc, day, message] = cleanCols;
-                
-                let statusBadge = '';
-                if(attending === 'yes') { statusBadge = '<span class="status-badge bg-yes">حاضر</span>'; yesCount++; }
-                else if(attending === 'maybe') { statusBadge = '<span class="status-badge bg-maybe">ربما</span>'; }
-                else { statusBadge = '<span class="status-badge bg-no">معتذر</span>'; }
+                const [name, attending, location, otherLoc, day, msg] = clean;
+                if(!name) return;
 
-                html += `
-                    <div class="vote-card">
-                        <span class="vote-name">${statusBadge} ${name}</span>
-                        <span class="vote-detail">📍 الوجهة: ${otherLoc || location || 'لم يحدد'}</span>
-                        <span class="vote-detail">📅 اليوم: ${day || 'أي يوم'}</span>
-                        ${message ? `<div class="vote-msg">📝 ${message}</div>` : ''}
-                    </div>
-                `;
+                let badge = `<span class="status-badge bg-maybe">ربما</span>`;
+                if(attending === 'yes') { badge = `<span class="status-badge bg-yes">حاضر</span>`; yesCount++; }
+                if(attending === 'no') badge = `<span class="status-badge bg-no">معتذر</span>`;
+
+                html += `<div class="vote-card">
+                    <strong>${badge} ${name}</strong><br>
+                    <small>📍 ${otherLoc || location || 'لم يحدد'}</small>
+                    ${msg ? `<div style="font-size:0.8em; color:#666; margin-top:5px; border-top:1px solid #eee; padding-top:5px;">📝 ${msg}</div>` : ''}
+                </div>`;
             });
 
-            document.getElementById('live-results').innerHTML = html || '<p style="grid-column:1/-1; text-align:center;">لا توجد أصوات بعد، كن أول من يصوت!</p>';
+            document.getElementById('live-results').innerHTML = html || '<p>لا توجد أصوات بعد</p>';
             document.getElementById('stat-total').innerText = rows.length;
             document.getElementById('stat-yes').innerText = yesCount;
-        } catch (e) { console.error("Error loading results:", e); }
+        } catch (e) { console.log(e); }
     }
 
     loadResults();
@@ -159,12 +127,14 @@
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: new FormData(this)})
         .then(() => {
-            document.getElementById('trip-form').style.display = 'none';
+            this.style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
-            setTimeout(() => location.reload(), 2500);
+            setTimeout(() => location.reload(), 2000);
+        }).catch(() => {
+            alert("حدث خطأ، حاول مرة أخرى");
+            btn.disabled = false; btn.innerHTML = "إرسال التصويت ✨";
         });
     });
 </script>
-
 </body>
 </html>
