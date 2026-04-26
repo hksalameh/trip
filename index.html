@@ -85,7 +85,18 @@
             margin-top: 10px;
         }
         button:hover { background-color: #219150; }
+        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
         .footer { text-align: center; font-size: 0.9em; color: #7f8c8d; margin-top: 20px; }
+        #success-msg {
+            display: none;
+            color: #27ae60;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -96,8 +107,7 @@
 </header>
 
 <div class="container">
-    <form action="https://formspree.io/f/xjgjznkp" method="POST">
-        
+    <form id="trip-form">
         <div class="card">
             <h2>البيانات الأساسية</h2>
             <div class="input-group">
@@ -163,13 +173,40 @@
             <textarea name="message" rows="4" placeholder="هل لديك أي ملاحظات أو اقتراحات أخرى؟"></textarea>
         </div>
 
-        <button type="submit">إرسال التصويت ✨</button>
+        <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
     </form>
+    
+    <div id="success-msg">تم استلام تصويتك بنجاح، شكراً لك! ❤️</div>
     
     <div class="footer">
         <p>مع تحياتي</p>
     </div>
 </div>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
+    const form = document.getElementById('trip-form');
+    const btn = document.getElementById('submit-btn');
+    const msg = document.getElementById('success-msg');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerHTML = "جاري الإرسال...";
+        
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                btn.style.display = 'none';
+                form.style.display = 'none';
+                msg.style.display = 'block';
+            })
+            .catch(error => {
+                btn.disabled = false;
+                btn.innerHTML = "إرسال التصويت ✨";
+                alert('عذراً، حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
+            });
+    });
+</script>
 
 </body>
 </html>
