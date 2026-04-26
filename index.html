@@ -3,133 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رحلتنا العائلية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>تخطيط الرحلة العائلية 🌴</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a5f7a; --accent: #ff8c32; --bg: #f8fafc; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); direction: rtl; margin: 0; padding: 0; }
-        header { background: var(--primary); color: white; padding: 30px; text-align: center; border-radius: 0 0 20px 20px; }
-        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
-        h2 { font-size: 1.1em; color: var(--primary); margin-bottom: 15px; border-right: 3px solid var(--accent); padding-right: 10px; }
-        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; box-sizing: border-box; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
-        .opt { border: 1px solid #ddd; padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; background: white; font-size: 0.9em; }
+        :root { --primary: #1a5f7a; --accent: #ff8c32; --success: #27ae60; --bg: #f0f2f5; --text: #2d3436; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: var(--text); }
+        header { background: linear-gradient(135deg, var(--primary) 0%, #082032 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .container { max-width: 800px; margin: -30px auto 50px; padding: 0 20px; }
+        
+        /* لوحة الإحصائيات الجميلة */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
+        .stat-card h3 { font-size: 0.9em; margin: 0 0 10px 0; color: #7f8c8d; }
+        .stat-num { font-size: 1.5em; font-weight: bold; color: var(--primary); display: block; }
+
+        .card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; }
+        h2 { color: var(--primary); font-size: 1.2em; border-right: 4px solid var(--accent); padding-right: 12px; margin-bottom: 20px; }
+
+        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+        .option-item { border: 2px solid #f1f2f6; border-radius: 15px; padding: 12px; text-align: center; cursor: pointer; transition: 0.3s; background: #fff; }
+        input:checked + .option-item { border-color: var(--accent); background: #fff9f4; transform: translateY(-3px); box-shadow: 0 5px 10px rgba(255,140,50,0.1); }
         input[type="radio"] { display: none; }
-        input:checked + .opt { border-color: var(--accent); background: #fff9f4; font-weight: bold; }
-        button { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
-        #live-results { margin-top: 20px; }
-        .vote-item { background: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; border-right: 4px solid var(--primary); font-size: 0.9em; }
+        input[type="text"], select { width: 100%; padding: 14px; border: 2px solid #f1f2f6; border-radius: 12px; font-family: inherit; margin-top: 8px; box-sizing: border-box; }
+        
+        button { background: var(--accent); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; box-shadow: 0 10px 20px rgba(255,140,50,0.2); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(255,140,50,0.3); }
+
+        .vote-card { background: white; padding: 15px; border-radius: 18px; border-right: 5px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 12px; }
+        .badge-yes { background: var(--success); color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.8em; }
+        #success-msg { display: none; background: var(--success); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<header><h1>رحلتنا العائلية 🌴</h1></header>
+<header>
+    <h1>رحلتنا العائلية 🌴</h1>
+    <p>صوتك يحدد الوجهة واللمة الحلوة</p>
+</header>
 
 <div class="container">
-    <form id="tripForm">
+    <div id="success-msg">✅ تم تسجيل صوتك بنجاح! جاري تحديث النتائج...</div>
+
+    <div class="stats-grid" id="stats-summary">
+        <div class="stat-card"><h3>الحضور ✅</h3><span class="stat-num" id="count-yes">0</span></div>
+        <div class="stat-card"><h3>أفضل مكان 📍</h3><span class="stat-num" id="top-loc">-</span></div>
+        <div class="stat-card"><h3>نوع الأكل 🍗</h3><span class="stat-num" id="top-food">-</span></div>
+        <div class="stat-card"><h3>اليوم الأفضل 📅</h3><span class="stat-num" id="top-day">-</span></div>
+    </div>
+
+    <form id="trip-form">
         <div class="card">
-            <h2>الاسم</h2>
-            <input type="text" name="name" required placeholder="اكتب اسمك">
+            <h2>👤 الاسم</h2>
+            <input type="text" name="name" placeholder="اكتب اسمك هنا..." required>
             <select name="attending">
-                <option value="yes">حاضر</option>
+                <option value="yes">بإذن الله، حاضر</option>
                 <option value="maybe">ربما</option>
                 <option value="no">معتذر</option>
             </select>
         </div>
 
         <div class="card">
-            <h2>المكان</h2>
-            <div class="grid">
-                <label><input type="radio" name="location" value="المخيبة" required><div class="opt">المخيبة</div></label>
-                <label><input type="radio" name="location" value="جرش"><div class="opt">جرش</div></label>
-                <label><input type="radio" name="location" value="عجلون"><div class="opt">عجلون</div></label>
-                <label><input type="radio" name="location" value="المثلث"><div class="opt">المثلث</div></label>
+            <h2>📍 المكان</h2>
+            <div class="grid-options">
+                <label><input type="radio" name="location" value="المخيبة"><div class="option-item">🌊 المخيبة</div></label>
+                <label><input type="radio" name="location" value="جرش"><div class="option-item">🏛️ جرش</div></label>
+                <label><input type="radio" name="location" value="عجلون"><div class="option-item">🏰 عجلون</div></label>
+                <label><input type="radio" name="location" value="المثلث"><div class="option-item">⛰️ المثلث</div></label>
             </div>
-            <input type="text" name="other_location" placeholder="اقتراح مكان آخر (اختياري)">
+            <input type="text" name="other_location" placeholder="اقتراح مكان آخر...">
         </div>
 
         <div class="card">
-            <h2>اليوم</h2>
-            <div class="grid">
-                <label><input type="radio" name="day" value="الخميس"><div class="opt">الخميس</div></label>
-                <label><input type="radio" name="day" value="الجمعة"><div class="opt">الجمعة</div></label>
-                <label><input type="radio" name="day" value="السبت"><div class="opt">السبت</div></label>
+            <h2>📅 اليوم</h2>
+            <div class="grid-options">
+                <label><input type="radio" name="day" value="الخميس"><div class="option-item">الخميس</div></label>
+                <label><input type="radio" name="day" value="الجمعة"><div class="option-item">الجمعة</div></label>
+                <label><input type="radio" name="day" value="السبت"><div class="option-item">السبت</div></label>
             </div>
         </div>
 
         <div class="card">
-            <h2>ماذا نأكل؟</h2>
-            <div class="grid">
-                <label><input type="radio" name="food" value="جاهز"><div class="opt">جاهز</div></label>
-                <label><input type="radio" name="food" value="شوي"><div class="opt">شوي</div></label>
-                <label><input type="radio" name="food" value="منزل"><div class="opt">من المنزل</div></label>
+            <h2>🍴 ماذا نأكل؟</h2>
+            <div class="grid-options">
+                <label><input type="radio" name="food" value="جاهز"><div class="option-item">🍗 جاهز</div></label>
+                <label><input type="radio" name="food" value="شوي"><div class="option-item">🔥 شوي</div></label>
+                <label><input type="radio" name="food" value="من المنزل"><div class="option-item">🏠 منزلي</div></label>
             </div>
-            <input type="text" name="food_suggestions" placeholder="اقتراحات الأكل (اختياري)">
+            <input type="text" name="food_suggestions" placeholder="اقتراحات للأكل...">
         </div>
 
-        <button type="submit" id="submitBtn">إرسال التصويت ✨</button>
+        <button type="submit" id="submit-btn">إرسال التصويت ✨</button>
     </form>
 
     <div id="live-results">
-        <p style="text-align:center">جاري تحميل النتائج...</p>
+        <h2 style="background:none; border:none; margin-bottom:15px;">📊 تفاصيل المصوتين</h2>
+        <div id="results-list"></div>
     </div>
 </div>
 
 <script>
-    // ضع رابط السكربت الخاص بك هنا
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxRwKiDXZ6dIodS6qL_-Lfn7rA2jkSQ2ZV4XvFoT28ZHuout8UqzYokrMmR4vqdB-XSKw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwKHkFyODQtLOfVYlB3rjKg-VEwvgHFzwTA6qVriALAdzjnKGsbkn_M7m-FtlwPhZMy7A/exec';
     const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3gvcZGCFU_5Hulp9Pos85XL4w3m2hgQ7ZG1ieZNGmH8zULhs9vqJePizw9338MQ-i25py-oz_JQjC/pub?output=csv';
 
-    // تحميل البيانات
-    async function loadResults() {
-        try {
-            const res = await fetch(csvURL);
-            const data = await res.text();
-            const rows = data.split('\n').slice(1);
-            let html = '<h2>الأصوات الحالية:</h2>';
-            rows.forEach(row => {
-                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, ''));
-                if(c[0]) {
-                    html += `<div class="vote-item">
-                        <strong>${c[0]}</strong> (${c[1] === 'yes' ? 'حاضر' : c[1]})<br>
-                        📍 ${c[3] || c[2]} | 📅 ${c[4]} | 🍴 ${c[5]}<br>
-                        ${c[6] ? `<small>💡 ${c[6]}</small>` : ''}
-                    </div>`;
-                }
-            });
-            document.getElementById('live-results').innerHTML = html;
-        } catch (e) { console.error(e); }
+    function getTop(obj) {
+        return Object.keys(obj).reduce((a, b) => obj[a] > obj[b] ? a : b, '-');
     }
 
-    loadResults();
+    async function loadData() {
+        try {
+            const resp = await fetch(csvURL);
+            const text = await resp.text();
+            const rows = text.split('\n').slice(1).filter(r => r.trim() !== '');
+            
+            let html = '', yesCount = 0;
+            let locs = {}, days = {}, foods = {};
 
-    // إرسال البيانات
-    document.getElementById('tripForm').addEventListener('submit', e => {
+            rows.forEach(row => {
+                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/^"|"$/g, '').trim());
+                const [name, attend, loc, oLoc, day, food, fSug] = c;
+                if(!name) return;
+
+                if(attend === 'yes') {
+                    yesCount++;
+                    const finalLoc = oLoc || loc;
+                    if(finalLoc) locs[finalLoc] = (locs[finalLoc] || 0) + 1;
+                    if(day) days[day] = (days[day] || 0) + 1;
+                    if(food) foods[food] = (foods[food] || 0) + 1;
+                }
+
+                html += `<div class="vote-card">
+                    <strong>${name}</strong> ${attend === 'yes' ? '<span class="badge-yes">حاضر</span>' : ''}<br>
+                    <small>📍 ${oLoc || loc || '-'} | 📅 ${day || '-'} | 🍴 ${food || '-'}</small>
+                    ${fSug ? `<div style="font-size:0.85em; color:#666; margin-top:5px; border-top:1px solid #eee; padding-top:5px;">💡 ${fSug}</div>` : ''}
+                </div>`;
+            });
+
+            document.getElementById('results-list').innerHTML = html;
+            document.getElementById('count-yes').innerText = yesCount;
+            document.getElementById('top-loc').innerText = getTop(locs);
+            document.getElementById('top-food').innerText = getTop(foods);
+            document.getElementById('top-day').innerText = getTop(days);
+        } catch(e) { console.error(e); }
+    }
+
+    loadData();
+
+    document.getElementById('trip-form').addEventListener('submit', e => {
         e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerText = "جاري الحفظ...";
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true; btn.innerText = "جاري الحفظ...";
 
-        const formData = new FormData(e.target);
-        
-        fetch(scriptURL, { 
-            method: 'POST', 
-            body: formData,
-            mode: 'no-cors' // حل مشكلة الـ CORS
-        })
+        fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert("تم التصويت بنجاح!");
-            location.reload();
-        })
-        .catch(err => {
-            console.error(err);
-            alert("حدث خطأ، حاول مرة أخرى.");
-            btn.disabled = false;
-            btn.innerText = "إرسال التصويت ✨";
+            document.getElementById('trip-form').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+            setTimeout(() => location.reload(), 2000);
         });
     });
 </script>
-
 </body>
 </html>
